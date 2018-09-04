@@ -1,5 +1,5 @@
 import Taro, {Component} from '@tarojs/taro'
-import {View, ScrollView, Input, Image} from '@tarojs/components'
+import {View, ScrollView, Input, Image, Text, Swiper, SwiperItem } from '@tarojs/components'
 import './index.scss'
 import Feed from '../../components/feed/feed'
 import searchPng from '../../asset/images/search.png'
@@ -7,6 +7,7 @@ import lightingPng from '../../asset/images/lighting.png'
 import {create} from 'dva-core';
 import {connect} from '@tarojs/redux'
 import action from '../../utils/action'
+import { AtNoticebar } from 'taro-ui'
 
 @connect(({feeds, loading}) => ({
   ...feeds,
@@ -40,44 +41,112 @@ export default class Index extends Component {
     this.props.dispatch(action("feeds/search",true));
   };
 
+
+
   render() {
     const {list = [], isLoad, isLoadMore} = this.props;
     return (
-      <View>
-        <View className='search flex-wrp'>
-          <View className='search-left flex-item'>
-            <View className='flex-wrp'>
-              <View className='flex1'><Image src={searchPng}></Image></View>
-              <View className='flex6'><Input type='text' placeholder={'搜索话题, 问题或人'}
-                                             placeholderClass='search-placeholder'/></View>
+     <View style="background:#f5f5f5;">
+       <Swiper
+       className='test-h'
+       indicatorColor='#f8bebc'
+       indicatorActiveColor='#fb5654'
+       circular
+       indicatorDots
+       autoplay>
+         <SwiperItem>
+           <View className='demo-text-1'>1</View>
+         </SwiperItem>
+         <SwiperItem>
+            <View className='demo-text-2'>2</View>
+         </SwiperItem>
+         <SwiperItem>
+           <View className='demo-text-3'>3</View>
+         </SwiperItem>
+       </Swiper>
+       <View className="flex-wrp tipfl" style="flex-direction:row;">
+        <View className="flex-item">
+          <Image src={require('../../asset/images/home/ic_home_recommend_default@3x.png')}/>
+          <Text>今日精选</Text>
+        </View>
+        <View className="flex-item">
+          <Image src={require('../../asset/images/home/ic_home_odds_default@3x.png')}/>
+          <Text>厂家特惠</Text>
+        </View>
+        <View className="flex-item">
+          <Image src={require('../../asset/images/home/ic_home_classify_default@3x.png')}/>
+          <Text>全部分类</Text>
+        </View>
+       </View>
+       <View className="xlb">
+        <AtNoticebar 
+         icon='volume-plus'
+         moreText='详情'
+         marquee
+         single>
+          优品汇自营家电清洗服务上线 
+        </AtNoticebar>
+       </View>
+       <View className="bosliving">
+        <View className="title">
+          <Text>厂家直播</Text>
+          <Image src={require('../../asset/images/home/ic_home_more_default@3x.png')}/>
+        </View>
+        <View className="box">
+          <View className="left-box">
+            <Image src={require('../../asset/images/modpic/09.jpg')}/>
+          </View>
+          <View className="right-box">
+            <View>
+              <Image src={require('../../asset/images/modpic/10.jpg')}/>
+            </View>
+            <View>
+              <Image src={require('../../asset/images/modpic/10.jpg')}/>
             </View>
           </View>
-          <View className='search-right flex-item'>
-            <Image onClick={this.updateList} src={lightingPng}></Image>
+        </View>
+       </View>
+       <View className="timelimt">
+          <View className="title" style="border-bottom:1px solid #e4e4e4;">
+            <Text>限时秒杀</Text>
+            <Image src={require('../../asset/images/home/ic_home_more_default@3x.png')}/>
           </View>
-        </View>
-        <View className='container'>
-          {
-            list.length ?
-              list.map(item => {
-                return <Feed
-                  key={item}
-                  feed_source_img={item.feed_source_img}
-                  feed_source_name={item.feed_source_name}
-                  feed_source_txt={item.feed_source_txt}
-                  question={item.question}
-                  answer_ctnt={item.answer_ctnt}
-                  good_num={item.good_num}
-                  comment_num={item.comment_num}
-                />
-              }) :
-              isLoad ? <View>加载中...</View> : <View>没有数据</View>
-          }
-          {
-            isLoadMore && <View>加载中...</View>
-          }
-        </View>
-      </View>
+          <View className="box">
+            <View className="godsli">
+              <Image  src={require('../../asset/images/modpic/845.jpg')}/>
+              <Text className="name">泡泡T恤</Text>
+              <View className="price">
+                $128
+                <Text style="font-size:25rpx;color:#AAAAAA;text-decoration:line-through;">$228</Text>
+              </View>
+            </View>
+            <View className="godsli">
+              <Image src={require('../../asset/images/modpic/845.jpg')}/>
+              <Text className="name">泡泡T恤</Text>
+              <View className="price">
+                $128
+                <Text style="font-size:25rpx;color:#AAAAAA;text-decoration:line-through;">$228</Text>
+              </View>
+            </View>
+            <View className="godsli">
+              <Image src={require('../../asset/images/modpic/845.jpg')}/>
+              <Text className="name">泡泡T恤</Text>
+              <View className="price">
+                $128
+                <Text style="font-size:25rpx;color:#AAAAAA;text-decoration:line-through;">$228</Text>
+              </View>
+            </View>
+            <View className="godsli">
+              <Image src={require('../../asset/images/modpic/845.jpg')}/>
+              <Text className="name">泡泡T恤</Text>
+              <View className="price">
+                $128
+                <Text style="font-size:25rpx;color:#AAAAAA;text-decoration:line-through;">$228</Text>
+              </View>
+            </View>
+          </View>
+       </View>
+     </View>
     )
   }
 }
